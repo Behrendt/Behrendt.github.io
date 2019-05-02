@@ -1,33 +1,74 @@
 <!DOCTYPE html>
 <html lang="en-us">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Cut and Run</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/WebGL.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/WebGL.json", { onProgress: UnityProgress });
+
+      function UnityProgress(unityInstance, progress) {
+        if (!unityInstance.Module) return;
+
+        if (!unityInstance.loading) {
+          unityInstance.loading = document.createElement('div');
+          unityInstance.loading.style.transition = 'background 0.5s';
+          unityInstance.loading.style.background = '#3B3B3D';
+          unityInstance.loading.style.position = 'absolute';
+          unityInstance.loading.style.bottom = 0;
+          unityInstance.loading.style.right = 0;
+          unityInstance.loading.style.left = 0;
+          unityInstance.loading.style.top = 0;
+
+          unityInstance.loadingImg = document.createElement('img');
+          unityInstance.loadingImg.src = 'Assets/Loading/loading-0.png';
+          unityInstance.loadingImg.srcset = 'Assets/Loading/loading-0@2x.png 2x';
+          unityInstance.loadingImg.style.transform = 'translate(-50%, -50%)';
+          unityInstance.loadingImg.style.position = 'absolute';
+          unityInstance.loadingImg.style.left = '50%';
+          unityInstance.loadingImg.style.top = '50%';
+
+          unityInstance.loading.appendChild(unityInstance.loadingImg)
+          unityInstance.container.appendChild(unityInstance.loading)
+        }
+
+        if (progress >= 0.25) {
+          unityInstance.loadingImg.src = 'Assets/Loading/loading-25.png';
+          unityInstance.loadingImg.srcset = 'Assets/Loading/loading-25@2x.png 2x';
+        }
+
+        if (progress >= 0.5) {
+          unityInstance.loadingImg.src = 'Assets/Loading/loading-50.png';
+          unityInstance.loadingImg.srcset = 'Assets/Loading/loading-50@2x.png 2x';
+        }
+
+        if (progress >= 0.75) {
+          unityInstance.loadingImg.src = 'Assets/Loading/loading-75.png';
+          unityInstance.loadingImg.srcset = 'Assets/Loading/loading-75@2x.png 2x';
+        }
+
+        if (progress == 1) {
+          unityInstance.loadingImg.src = 'Assets/Loading/loading-100.png';
+          unityInstance.loadingImg.srcset = 'Assets/Loading/loading-100@2x.png 2x';
+
+          setTimeout(function() {
+            unityInstance.loading.style.background = '#FFFFFF';
+            unityInstance.loadingImg.src = 'Assets/Loading/splash.png';
+            unityInstance.loadingImg.srcset = 'Assets/Loading/splash@2x.png 2x';
+          }, 2000);
+
+          setTimeout(function() {
+            unityInstance.loading.style.display = 'none';
+          }, 4000);
+        }
+      }
     </script>
   </head>
+  
   <body>
-  <p>Controls</p>
-<ul>
-<li>Left: A/Left arrow</li>
-<li>Right: D/Right arrow</li>
-<li>Jump: Space/W/Up arrow</li>
-<li>Duck: S/Down arrow</li>
-<li>Pause: P</li>
-</ul>
-    <div class="webgl-content">
-      <div id="gameContainer" style="width: 960px; height: 600px"></div>
-      <div class="footer">
-        <div class="webgl-logo"></div>
-        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-        <div class="title">Cut and Run</div>
-      </div>
-    </div>
+    <div id="unityContainer" style="width: 960px; height: 600px; margin: auto"></div>
   </body>
+
 </html>
