@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-us">
-
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Cut and Run</title>
+<html>
+<head>
+  <title>Paper Cut n Run</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow:400,400i,600,600i,700,700i|Source+Sans+Pro:400,400i,600,600i,700,700i">
+  <link rel="stylesheet" href="https://cdn1.papercut.com/web/digital/papercut-vui.css">
     <script src="Build/UnityLoader.js"></script>
     <script>
       var unityInstance = UnityLoader.instantiate("unityContainer", "Build/WebGL.json", { onProgress: UnityProgress });
@@ -65,10 +65,35 @@
         }
       }
     </script>
-  </head>
-  
-  <body>
-    <div id="unityContainer" style="width: 960px; height: 600px; margin: auto"></div>
-  </body>
-
+</head>
+<body>
+  <div class="papercut">
+    <header class="page-header">
+      <div class="container">
+        <a class="logo">
+          <img src="https://cdn1.papercut.com/web/img/logo.png" srcset="https://cdn1.papercut.com/web/img/logo@2x.png">
+        </a>
+      </div>
+    </header>
+    <main class="page-main">
+      <section class="bg--brand">
+        <div class="container padding--vertical--s">
+          <h1 class="type--h2--white">Cut n Run</h1>
+        </div>
+      </section>
+      <section>
+        <div class="container padding--vertical--l type--align-center">
+		<div class="display--inline-block">
+			<div id="unityContainer" style="width: 960px; height: 600px; margin: auto;"></div>
+		</div>
+        </div>
+      </section>
+    </main>
+    <footer class="page-footer">
+      <div class="copyright">
+        <p>&copy; 2019 PaperCut Software International Pty Ltd</p>
+      </div>
+    </footer>
+  </div>
+</body>
 </html>
